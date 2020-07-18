@@ -4,22 +4,22 @@ import random
 import requests
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from fake_useragent import UserAgent #For our random user agents!
 
-USER_AGENTS=[]
+#USER_AGENTS=[]
 
 TEST_SOCKS=[]
 GOOD_SOCKS=[]
 
 THREADS=[]
 NUM_OF_THREADS=15
-
+ua = UserAgent() #invoke the func!
+#update -- we add 
 # ------------------------------------------------------------------------------
 
 def ll_proxyscan_io():
 
-    global USER_AGENTS
-    ua=random.choice(USER_AGENTS)
-    rnd_header={'User-Agent':ua}    
+    rnd_header={'User-Agent':ua.random}    
     socks_list=[]
     
     r = requests.get('https://www.proxyscan.io/download?type=socks5',headers=rnd_header)
@@ -37,9 +37,7 @@ def ll_proxyscan_io():
 
 def ll_speedx():
 
-    global USER_AGENTS
-    ua=random.choice(USER_AGENTS)
-    rnd_header={'User-Agent':ua}    
+    rnd_header={'User-Agent':ua.random}    
     socks_list=[]
         
     r = requests.get('https://github.com/TheSpeedX/PROXY-List/blob/master/socks5.txt',headers=rnd_header)
@@ -63,9 +61,7 @@ def ll_speedx():
 
 def ll_socks5():
 
-    global USER_AGENTS
-    ua=random.choice(USER_AGENTS)
-    rnd_header={'User-Agent':ua}    
+    rnd_header={'User-Agent':ua.random}    
     socks_list=[]
         
     r = requests.get('https://github.com/hookzof/socks5_list/blob/master/proxy.txt',headers=rnd_header)
@@ -88,10 +84,7 @@ def ll_socks5():
 # ------------------------------------------------------------------------------
 
 def chk_one_sock(xsock):
-
-    global USER_AGENTS
-    ua=random.choice(USER_AGENTS)
-    rnd_header={'User-Agent':ua}       
+    rnd_header={'User-Agent':ua.random}       
 
     result=""
     
@@ -124,9 +117,7 @@ def chk_one_sock(xsock):
     return result
 # ------------------------------------------------------------------------------
 
-print("-=[ Free Socks5 Grabber and checker v.0.1 ]=-\n")
-
-USER_AGENTS=open("user_agents.txt").read().splitlines()
+print("-=[ Free Socks5 Grabber and checker v.02 ]=-\n")
 
 TEST_SOCKS=TEST_SOCKS+open("old_socks.txt").read().splitlines()
 
